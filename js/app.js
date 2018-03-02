@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-
+const deck = document.querySelectorAll('li.card i');
 
 /*
  * Display the cards on the page
