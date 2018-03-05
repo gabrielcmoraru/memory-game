@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const deck = document.querySelectorAll('li.card i');
+let cards = [...document.getElementsByClassName('card')];
 
 /*
  * Display the cards on the page
@@ -9,22 +9,34 @@ const deck = document.querySelectorAll('li.card i');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+function gameInit(){
+//Constant that holds all cards aka board
+const board = document.querySelector('.deck');
+//Variable for shuffled cards
+let mixCards = shuffle(cards);
+//Append each mixed card to the board
+	mixCards.map(element => {
+		return board.append(element);
+		});
+}
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+		var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+		while (currentIndex !== 0) {
+				randomIndex = Math.floor(Math.random() * currentIndex);
+				currentIndex -= 1;
+				temporaryValue = array[currentIndex];
+				array[currentIndex] = array[randomIndex];
+				array[randomIndex] = temporaryValue;
+		}
 
-    return array;
+		return array;
 }
 
+document.addEventListener('DOMContentLoaded', gameInit());
 
 /*
  * set up the event listener for a card. If a card is clicked:
