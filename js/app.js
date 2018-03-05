@@ -15,9 +15,15 @@ const board = document.querySelector('.deck');
 //Variable for shuffled cards
 let mixCards = shuffle(cards);
 //Append each mixed card to the board
-	mixCards.map(element => {
-		return board.append(element);
-		});
+//Advanced version using map, recomended to use the for instead by mentor
+//
+// mixCards.map(element => {
+// 	return board.append(element);
+// 	});
+//
+for (let i = 0; i < mixCards.length; i++){
+	board.append(mixCards[i]);
+};
 }
 
 
