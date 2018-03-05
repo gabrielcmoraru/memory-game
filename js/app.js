@@ -1,6 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
+// Spread HTMLCollection into an array
 let cards = [...document.getElementsByClassName('card')];
 
 /*
@@ -11,28 +12,71 @@ let cards = [...document.getElementsByClassName('card')];
  */
 
 function gameInit() {
-//Constant that holds all cards aka board
+// Constant that holds all cards aka board
 const board = document.querySelector('.deck');
 
-//Variable for shuffled cards
+// Variable for shuffled cards
 let mixCards = shuffle(cards);
 
-//Append each mixed card to the board
-//Set up the event listener for a card. If a card is clicked:
+// Append each mixed card to the board
+// Set up the event listener for a card. If a card is clicked:
 // - display the card's symbol
 //
-//Advanced version using map, recomended to use the 'for loop' instead by mentor
-//mixCards.map(element => {
-//return board.append(element);
-//});
+// Advanced version using map, recomended to use the 'for loop' instead by mentor
+// mixCards.map(element => {
+// return board.append(element);
+// });
 //
-for (let i = 0; i < mixCards.length; i++){
+for (let i = 0; i < mixCards.length; i++) {
 	board.append(mixCards[i]);
 	cards[i].addEventListener('click', reveal);
+	cards[i].addEventListener('click', check);
 	};
 }
 
-//Show/hide symbol (Add or remove classes to card)
+// Global Variable holding opened cards
+let vs = [];
+
+// Cards checker that holds a maximum of 2 cards
+function check() {
+	// Push card into opened cards
+	vs.push(this);
+	// While opened cards length is 2 check:
+	let len = vs.length;
+	if (len == 2){
+		// While cards have same id call match function
+		if (vs[0].id === vs[1].id){
+			match();
+			// If not call noMatch function
+		} else {
+			noMatch();
+		}
+console.log(vs)
+	}
+}
+
+// Opened cards match function add's match class, call reset match function with timer to allow card view for x ammount of ms
+function match() {
+	vs[0].classList.add('match');
+	vs[1].classList.add('match');
+  resetMatch();
+}
+
+// Opened cards noMatch function add's wrong class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms
+function noMatch() {
+	vs[0].classList.add('wrong');
+	vs[1].classList.add('wrong');
+	setTimeout(resetMatch, 450);
+}
+
+// Remove classes from the 2 cards and empty the 'vs' array
+function resetMatch() {
+	vs[0].classList.remove('open', 'show', 'wrong');
+	vs[1].classList.remove('open', 'show', 'wrong');
+	vs = [];
+}
+
+// Display symbol (Add or remove classes to card)
 function reveal() {
 	this.classList.toggle('open');
 	this.classList.toggle('show');
@@ -51,10 +95,6 @@ function shuffle(array) {
 		}
 
 		return array;
-}
-
-function openList() {
-
 }
 
 document.addEventListener('DOMContentLoaded', gameInit());
