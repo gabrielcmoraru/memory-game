@@ -9,23 +9,34 @@ let cards = [...document.getElementsByClassName('card')];
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-function gameInit(){
+
+function gameInit() {
 //Constant that holds all cards aka board
 const board = document.querySelector('.deck');
+
 //Variable for shuffled cards
 let mixCards = shuffle(cards);
+
 //Append each mixed card to the board
-//Advanced version using map, recomended to use the for instead by mentor
+//Set up the event listener for a card. If a card is clicked:
+// - display the card's symbol
 //
-// mixCards.map(element => {
-// 	return board.append(element);
-// 	});
+//Advanced version using map, recomended to use the 'for loop' instead by mentor
+//mixCards.map(element => {
+//return board.append(element);
+//});
 //
 for (let i = 0; i < mixCards.length; i++){
 	board.append(mixCards[i]);
-};
+	cards[i].addEventListener('click', reveal);
+	};
 }
 
+//Show/hide symbol (Add or remove classes to card)
+function reveal() {
+	this.classList.toggle('open');
+	this.classList.toggle('show');
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -42,11 +53,18 @@ function shuffle(array) {
 		return array;
 }
 
+function openList() {
+
+}
+
 document.addEventListener('DOMContentLoaded', gameInit());
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
+
+
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
