@@ -100,9 +100,10 @@ function match() {
 }
 
 
-// Display the modal
+// Display a modal for completing the game
 function winner() {
  modal.style.display = 'block';
+
 }
 
 // Opened cards noMatch function add's 'wrong' class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms, and the moves counter
