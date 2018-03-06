@@ -165,6 +165,31 @@ document.addEventListener('DOMContentLoaded', gameInit());
 restartGame.onclick = gameInit;
 
 
+// Modal
+let modal = document.getElementById('endGame');
+let btn = document.getElementById('btn');
+let close = document.getElementsByClassName('modal-buttons')[0];
+let reset = document.getElementsByClassName('modal-buttons')[1];
+
+btn.onclick = function() {
+	modal.style.display = 'block';
+}
+
+close.onclick = function() {
+	modal.style.display = 'none';
+}
+
+reset.onclick = function() {
+	modal.style.display = 'none';
+	gameInit();
+}
+
+window.onclick = function(event) {
+	if (event.target == modal) {
+		modal.style.display = 'none';
+	};
+}
+
 
 
 

@@ -117,3 +117,41 @@ h1 {
 .stars .minus {
 	color: #e8315a;
 }
+
+/* Modal end-game display  */
+.modal {
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+	text-align: center;
+	background-color: #FFF;
+	margin: 15% auto;
+	border: 1px solid black;
+	width: 40%;
+}
+
+.modal-buttons {
+	color: gray;
+	display: table;
+	margin: auto;
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.modal-buttons:hover {
+	color: lightseagreen;
+	text-decoration: none;
+	cursor: pointer;
+	transform: scaleX(1.1);
+	transition: ease-in-out 0.2s;
+}
