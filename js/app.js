@@ -19,6 +19,9 @@ let moves = 0;
 // Variable holding opened cards
 let vs = [];
 
+// Variable holding matched pairs
+let pairs = 0;
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -33,6 +36,9 @@ displayMoves.innerHTML = 0;
 
 // Reset moves counter in the counter(got that ?)
 moves = 0;
+
+// Reset matched pairs counter
+pairs = 0;
 
 // Empty opened cards array
 vs = [];
@@ -78,12 +84,25 @@ console.log(vs)
 	}
 }
 
-// Opened cards match function add's 'match' class, calls moves counter and reset checker
+// Opened cards match function add's 'match' class and add's them to matched pairs, if matched pairs is 8 call's winner function with a delay of 200ms, if matched pairs is smaller then 8 calls moves counter and reset checker
 function match() {
-	vs[0].classList.add('match');
-	vs[1].classList.add('match');
-	countMoves();
-	resetCheck();
+	pairs++;
+	if (pairs === 8) {
+		vs[0].classList.add('match');
+		vs[1].classList.add('match');
+		setTimeout(winner, 200);
+	} else {
+		vs[0].classList.add('match');
+		vs[1].classList.add('match');
+		countMoves();
+		resetCheck();
+	};
+}
+
+
+// Display the modal
+function winner() {
+ modal.style.display = 'block';
 }
 
 // Opened cards noMatch function add's 'wrong' class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms, and the moves counter
@@ -144,6 +163,33 @@ function stars() {
 	};
 }
 
+
+// Modal system
+//----------------
+// Variables for modal and modal buttons
+let modal = document.getElementById('endGame');
+let close = document.getElementsByClassName('modal-buttons')[0];
+let reset = document.getElementsByClassName('modal-buttons')[1];
+
+// Close button hides display by removing class
+close.onclick = function() {
+	modal.style.display = 'none';
+}
+
+// Reset button hides display by removing class and call's game restart function
+reset.onclick = function() {
+	modal.style.display = 'none';
+	gameInit();
+}
+
+// Clicking on the modal hides display by removing class
+window.onclick = function(click) {
+	if (click.target == modal) {
+		modal.style.display = 'none';
+	};
+}
+
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
 		var currentIndex = array.length, temporaryValue, randomIndex;
@@ -159,36 +205,12 @@ function shuffle(array) {
 		return array;
 }
 
+// After content is loaded game reset function is called
 document.addEventListener('DOMContentLoaded', gameInit());
 
 // Reset button
 restartGame.onclick = gameInit;
 
-
-// Modal
-let modal = document.getElementById('endGame');
-let btn = document.getElementById('btn');
-let close = document.getElementsByClassName('modal-buttons')[0];
-let reset = document.getElementsByClassName('modal-buttons')[1];
-
-btn.onclick = function() {
-	modal.style.display = 'block';
-}
-
-close.onclick = function() {
-	modal.style.display = 'none';
-}
-
-reset.onclick = function() {
-	modal.style.display = 'none';
-	gameInit();
-}
-
-window.onclick = function(event) {
-	if (event.target == modal) {
-		modal.style.display = 'none';
-	};
-}
 
 
 
