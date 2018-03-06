@@ -99,15 +99,15 @@ function stars() {
 	switch (moves) {
 		case 9:
 		starsRating[0].classList.remove('fa-star');
-		starsRating[0].classList.add('fa-circle', 'minus');
+		starsRating[0].classList.add('fa-question-circle', 'minus');
 			break;
 		case 13:
 		starsRating[1].classList.remove('fa-star');
-		starsRating[1].classList.add('fa-circle', 'minus');
+		starsRating[1].classList.add('fa-question-circle', 'minus');
 			break;
 		case 18:
 		starsRating[2].classList.remove('fa-star');
-		starsRating[2].classList.add('fa-circle', 'minus');
+		starsRating[2].classList.add('fa-question-circle', 'minus');
 			break;
 	}
 }
