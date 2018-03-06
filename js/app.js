@@ -7,11 +7,14 @@ let cards = [...document.getElementsByClassName('card')];
 // Selector for moves
 let displayMoves = document.querySelector('span');
 
-// Variable that stores number of moves
-let moves = 0;
+// Selector for restart button
+let restartGame = document.querySelector('.fa-repeat');
 
 // Spread star elements into an array
 const starsRating = [...document.getElementsByClassName('fa-star')];
+
+// Variable that stores number of moves
+let moves = 0;
 
 /*
  * Display the cards on the page
@@ -90,8 +93,8 @@ function reveal() {
 // Moves counter that updates the score panel and calls the star rating function
 function countMoves() {
 	moves++;
-	stars();
 	displayMoves.innerHTML = moves;
+	stars();
 }
 
 // Rates the current player according to the number of moves made, replacing stars with circles and different colours for different scoring systems
@@ -109,7 +112,19 @@ function stars() {
 		starsRating[2].classList.remove('fa-star');
 		starsRating[2].classList.add('fa-question-circle', 'minus');
 			break;
-	}
+		case 22:
+		starsRating[0].classList.remove('fa-question-circle');
+		starsRating[0].classList.add('fa-exclamation');
+			break;
+		case 25:
+		starsRating[1].classList.remove('fa-question-circle');
+		starsRating[1].classList.add('fa-exclamation');
+			break;
+		case 28:
+		starsRating[2].classList.remove('fa-question-circle');
+		starsRating[2].classList.add('fa-exclamation');
+			break;
+	};
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -129,12 +144,19 @@ function shuffle(array) {
 
 document.addEventListener('DOMContentLoaded', gameInit());
 
+// Reset button
+restartGame.onclick = gameInit;
+
+
+
+
+
+
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
-
-
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
