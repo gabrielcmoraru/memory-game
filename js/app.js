@@ -16,6 +16,9 @@ const starsRating = [...document.getElementsByClassName('fa-star')];
 // Variable that stores number of moves
 let moves = 0;
 
+// Variable holding opened cards
+let vs = [];
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -24,6 +27,22 @@ let moves = 0;
  */
 
 function gameInit() {
+
+// Reset moves counter on page
+displayMoves.innerHTML = 0;
+
+// Reset moves counter in the counter(got that ?)
+moves = 0;
+
+// Empty opened cards array
+vs = [];
+
+// Reset star rating to default icons
+starsRating.forEach( function(element) {
+	element.classList.remove('fa-question-circle', 'fa-exclamation', 'minus');
+	element.classList.add('fa-star')
+});
+
 // Variable that holds all cards aka board
 const board = document.querySelector('.deck');
 
@@ -35,13 +54,11 @@ let mixCards = shuffle(cards);
 // - display the card's symbol
 for (let i = 0; i < mixCards.length; i++) {
 	board.append(mixCards[i]);
+	cards[i].classList.remove('open', 'show', 'wrong', 'match')
 	cards[i].addEventListener('click', reveal);
 	cards[i].addEventListener('click', check);
 	};
 }
-
-// Global Variable holding opened cards
-let vs = [];
 
 // Cards checker that holds a maximum of 2 cards
 function check() {
