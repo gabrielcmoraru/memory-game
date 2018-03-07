@@ -199,3 +199,15 @@ h1 {
 	transform: scaleX(1.1);
 	transition: ease-in-out 0.2s;
 }
+
+@media screen and (max-width: 680px) {
+	.deck {
+		width: 480px;
+		min-height: 460px;
+		padding: 10px;
+	}
+	.deck .card {
+		height: 100px;
+		width: 100px;
+	}
+}
