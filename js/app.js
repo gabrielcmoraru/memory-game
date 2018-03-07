@@ -22,6 +22,7 @@ let vs = [];
 // Variable holding matched pairs
 let pairs = 0;
 
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -64,6 +65,20 @@ for (let i = 0; i < mixCards.length; i++) {
 	cards[i].addEventListener('click', reveal);
 	cards[i].addEventListener('click', check);
 	};
+}
+
+// Session counter
+function timer() {
+    let sec = 0;
+    let timer = setInterval(function(){
+        document.getElementById('timer-display').innerHTML=`&#128345; ${sec}  Seconds`;
+        sec++;
+        if (sec > 500) {
+        		document.getElementById('timer-display').innerHTML=`&#128345; Try again <i class="fa fa-arrow-right"></i>`;
+        		alert('Are we still playing? You probably feel asleep ?! I will stop counting now !')
+            clearInterval(timer);
+        };
+    }, 1000);
 }
 
 // Cards checker that holds a maximum of 2 cards
