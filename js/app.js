@@ -1,14 +1,20 @@
 /*
  * Create a list that holds all of your cards
  */
+// Selector for individual card
+let card = document.getElementsByClassName('card');
+
 // Spread HTMLCollection into an array
-let cards = [...document.getElementsByClassName('card')];
+let cards = [...card];
 
 // Selector for moves
 let displayMoves = document.querySelector('span');
 
 // Selector for restart button
 let restartGame = document.querySelector('.fa-repeat');
+
+// Selector for timer
+let timerDisplay = document.querySelector('.timer-display');
 
 // Spread star elements into an array
 const starsRating = [...document.getElementsByClassName('fa-star')];
@@ -21,6 +27,9 @@ let vs = [];
 
 // Variable holding matched pairs
 let pairs = 0;
+
+// Variable for counter
+let countup;
 
 
 /*
@@ -44,6 +53,13 @@ pairs = 0;
 // Empty opened cards array
 vs = [];
 
+// Stop counter
+clearInterval(countup);
+
+// Reset on page counter
+timerDisplay.textContent = 'Timer 0:00';
+document.title = 'Matching Game';
+
 // Reset star rating to default icons
 starsRating.forEach( function(element) {
 	element.classList.remove('fa-question-circle', 'fa-exclamation', 'minus');
@@ -56,6 +72,9 @@ const board = document.querySelector('.deck');
 // Variable for shuffled cards
 let mixCards = shuffle(cards);
 
+// Add event listeners for each card to start the timer
+cards.forEach(card => card.addEventListener('click', startTimer));
+
 // Append each mixed card to the board
 // Set up the event listener for a card. If a card is clicked:
 // - display the card's symbol
@@ -67,19 +86,41 @@ for (let i = 0; i < mixCards.length; i++) {
 	};
 }
 
-// Session counter
-function timer() {
-    let sec = 0;
-    let timer = setInterval(function(){
-        document.getElementById('timer-display').innerHTML=`&#128345; ${sec}  Seconds`;
-        sec++;
-        if (sec > 500) {
-        		document.getElementById('timer-display').innerHTML=`&#128345; Try again <i class="fa fa-arrow-right"></i>`;
-        		alert('Are we still playing? You probably feel asleep ?! I will stop counting now !')
-            clearInterval(timer);
-        };
-    }, 1000);
+
+// Timer
+//----------
+// Game session counter
+function timer(seconds) {
+	// Initial time
+	const beginning = Date.now();
+	// Starting time
+	displayTimePassed(0);
+
+	countup = setInterval(() => {
+		const secondsPassed = Math.round((Date.now() - beginning ) / 1000);
+		if (secondsPassed > 300) {
+			clearInterval(countup);
+			return;
+		}
+		displayTimePassed(secondsPassed);
+	},1000);
 }
+
+// Display session counter
+function displayTimePassed(seconds) {
+	const minutes = Math.floor(seconds / 60);
+	const remainderSeconds = seconds % 60;
+	const display = `Timer ${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
+	document.title = display;
+	timerDisplay.textContent = display;
+}
+
+// Start counter and remove event listeners from all other cards
+function startTimer() {
+  timer();
+  cards.forEach(card => card.removeEventListener('click', startTimer))
+}
+
 
 // Cards checker that holds a maximum of 2 cards
 function check() {
@@ -113,7 +154,6 @@ function match() {
 		resetCheck();
 	};
 }
-
 
 // Display a modal for completing the game
 function winner() {
@@ -226,7 +266,6 @@ document.addEventListener('DOMContentLoaded', gameInit());
 
 // Reset button
 restartGame.onclick = gameInit;
-
 
 
 
