@@ -72,17 +72,16 @@ const board = document.querySelector('.deck');
 // Variable for shuffled cards
 let mixCards = shuffle(cards);
 
-// Add event listeners for each card to start the timer
-cards.forEach(card => card.addEventListener('click', startTimer));
-
 // Append each mixed card to the board
 // Set up the event listener for a card. If a card is clicked:
 // - display the card's symbol
+// - start the timer (is removed after timer starts)
 for (let i = 0; i < mixCards.length; i++) {
 	board.append(mixCards[i]);
 	cards[i].classList.remove('open', 'show', 'wrong', 'match')
 	cards[i].addEventListener('click', reveal);
 	cards[i].addEventListener('click', check);
+	cards[i].addEventListener('click', startTimer);
 	};
 }
 
@@ -129,8 +128,8 @@ function check() {
 	// While opened cards length is 2 check:
 	let len = vs.length;
 	if (len === 2) {
-		// While cards have same id call match function
-		if (vs[0].id === vs[1].id) {
+		// While cards have same id and are different cards call match function
+		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
 			match();
 			// If not call noMatch function
 		} else {
@@ -151,6 +150,10 @@ function match() {
 	} else {
 		vs[0].classList.add('match');
 		vs[1].classList.add('match');
+		vs[0].removeEventListener('click', check);
+		vs[1].removeEventListener('click', check);
+		vs[0].removeEventListener('click', reveal);
+		vs[1].removeEventListener('click', reveal);
 		countMoves();
 		resetCheck();
 	};
