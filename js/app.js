@@ -146,6 +146,7 @@ function match() {
 	if (pairs === 8) {
 		vs[0].classList.add('match');
 		vs[1].classList.add('match');
+		clearInterval(countup);
 		setTimeout(winner, 200);
 	} else {
 		vs[0].classList.add('match');
@@ -242,6 +243,7 @@ reset.onclick = function() {
 window.onclick = function(click) {
 	if (click.target == modal) {
 		modal.style.display = 'none';
+		gameInit();
 	};
 }
 
