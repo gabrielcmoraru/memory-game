@@ -127,7 +127,7 @@ function check() {
 	vs.push(this);
 	// While opened cards length is 2 check:
 	let len = vs.length;
-	if (len === 2) {
+	if (len == 2) {
 		// While cards have same id and are different cards call match function
 		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
 			match();
@@ -161,8 +161,14 @@ function match() {
 
 // Display a modal for completing the game
 function winner() {
- modal.style.display = 'block';
-
+	const rating = `${moves < 9 ?  "3 stars" : moves < 13 ?  "2 stars" : moves < 18 ? "1 stars" : "...Did you thought about playing something else maybe?"}`;
+	modal.style.display = 'block';
+	winnerText.innerHTML = `
+	<h2>Congratulations !!!</h2>
+	<h3>You finished in ${moves} moves</h3>
+	<h3>Amazing speed your time was ${timerDisplay.innerHTML.slice(5)}</h3>
+	<h3>Rating ${rating}</h3>
+	`;
 }
 
 // Opened cards noMatch function add's 'wrong' class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms, and the moves counter
@@ -170,7 +176,7 @@ function noMatch() {
 	vs[0].classList.add('wrong');
 	vs[1].classList.add('wrong');
 	countMoves();
-	setTimeout(resetCheck, 450);
+	setTimeout(resetCheck, 200);
 }
 
 // Remove classes from the 2 cards and empty the 'vs' array
@@ -230,6 +236,7 @@ function stars() {
 let modal = document.getElementById('endGame');
 let close = document.getElementsByClassName('modal-buttons')[0];
 let reset = document.getElementsByClassName('modal-buttons')[1];
+let winnerText = document.getElementsByClassName('winner-text')[0];
 
 // Close button hides display by removing class
 close.onclick = function() {

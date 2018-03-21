@@ -178,18 +178,24 @@ h1 {
 .modal-content {
 	text-align: center;
 	background-color: #FFF;
-	margin: 15% auto;
+	margin: 10% auto;
 	border: 1px solid black;
-	width: 40%;
+	width: 50%;
+	height: 60%;
 	animation: rainbow 3s;
 }
 
 .modal-buttons {
+	padding: 5px;
 	color: gray;
 	display: table;
 	margin: auto;
 	font-size: 2em;
 	font-weight: bold;
+}
+
+.modal-buttons:nth-child(1):hover {
+ color: red;
 }
 
 .modal-buttons:hover {
