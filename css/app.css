@@ -186,16 +186,39 @@ h1 {
 }
 
 .modal-buttons {
-	padding: 5px;
+	padding: 15px;
+	margin: 15px;
 	color: gray;
-	display: table;
+	display: inline-block;
 	margin: auto;
 	font-size: 2em;
 	font-weight: bold;
 }
 
-.modal-buttons:nth-child(1):hover {
+.modal-buttons:nth-of-type(1):hover {
  color: red;
+}
+
+.modal-buttons:nth-of-type(1) {
+	float: left;
+	animation: glowing-close 1500ms infinite;
+}
+
+.modal-buttons:nth-of-type(2) {
+	float: right;
+	animation: glowing-new 1500ms infinite;
+}
+
+@keyframes glowing-close {
+	0% { color: #B20000; text-shadow: 0 0 3px #B20000; }
+	50% { color: #FF0000; text-shadow: 0 0 40px #FF0000; }
+	100% { color: #B20000; text-shadow: 0 0 3px #B20000; }
+}
+
+@keyframes glowing-new {
+	0% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
+	50% { color: #20B2FF; text-shadow: 0 0 40px #20B2FF; }
+	100% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
 }
 
 .modal-buttons:hover {

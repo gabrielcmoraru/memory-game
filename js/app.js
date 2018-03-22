@@ -165,9 +165,13 @@ function winner() {
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<h2>Congratulations !!!</h2>
+	<br>
 	<h3>You finished in ${moves} moves</h3>
+	<hr>
 	<h3>Amazing speed your time was ${timerDisplay.innerHTML.slice(5)}</h3>
+	<hr>
 	<h3>Rating ${rating}</h3>
+	<hr>
 	`;
 }
 
