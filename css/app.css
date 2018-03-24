@@ -38,7 +38,7 @@ h1 {
  */
 
 .deck {
-		width: 660px;
+		width: 80vw;
 		min-height: 680px;
 		background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
 		padding: 32px;
@@ -53,7 +53,7 @@ h1 {
 
 .deck .card {
 		height: 125px;
-		width: 125px;
+		width: 17vw;
 		background: #2e3d49;
 		font-size: 0;
 		color: #000;
@@ -72,18 +72,18 @@ h1 {
 }
 
 .deck .card.show {
-		font-size: 33px;
+		font-size: 3em;
 }
 
 .deck .card.match {
 		cursor: default;
 		background: #FFFF00;
-		font-size: 33px;
+		font-size: 3em;
 }
 .deck .card.wrong {
 		cursor: default;
 		background: #FD0000;
-		font-size: 33px;
+		font-size: 3em;
 }
 
 /*
@@ -180,8 +180,8 @@ h1 {
 	background-color: #FFF;
 	margin: 10% auto;
 	border: 1px solid black;
-	width: 50%;
-	height: 60%;
+	width: 70vw;
+	height: 400px	;
 	animation: rainbow 3s;
 }
 
@@ -209,15 +209,16 @@ h1 {
 	animation: glowing-new 1500ms infinite;
 }
 
-@keyframes glowing-close {
+/* Flashing button keyframes */
+/* @keyframes glowing-close {
 	0% { color: #B20000; text-shadow: 0 0 3px #B20000; }
 	50% { color: #FF0000; text-shadow: 0 0 40px #FF0000; }
 	100% { color: #B20000; text-shadow: 0 0 3px #B20000; }
 }
-
+ */
 @keyframes glowing-new {
 	0% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
-	50% { color: #20B2FF; text-shadow: 0 0 40px #20B2FF; }
+	50% { color: #20B; text-shadow: 0 0 40px #20B2FF; }
 	100% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
 }
 
@@ -229,14 +230,54 @@ h1 {
 	transition: ease-in-out 0.2s;
 }
 
+
+/* Media breakpoints */
+
+@media screen and (max-width: 900px) {
+	.deck{
+		min-height: 660px;
+	}
+	.deck .card {
+		width: 16vw;
+		height: 125px;
+	}
+}
+
 @media screen and (max-width: 680px) {
 	.deck {
-		width: 480px;
-		min-height: 460px;
+		width: 90vw;
+		min-height: 560px;
+	}
+	.deck .card {
+		width: 18vw;
+		height: 100px;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.deck {
+		width: 98vw;
+		min-height: 500px;
+	}
+	.deck .card {
+		width: 19vw;
+		height: 90px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.deck {
+		width: 98vw;
+		min-height: 400px;
 		padding: 10px;
 	}
 	.deck .card {
-		height: 100px;
-		width: 100px;
+		width: 20vw;
+		height: 80px;
+	}
+	.deck .card.match,
+	.deck .card.show,
+	.deck .card.wrong {
+		font-size: 2em;
 	}
 }

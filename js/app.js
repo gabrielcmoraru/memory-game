@@ -129,7 +129,7 @@ function check() {
 	let len = vs.length;
 	if (len == 2) {
 		// While cards have same id and are different cards call match function
-		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
+		if (vs[0].id === vs[1].id ) {
 			match();
 			// If not call noMatch function
 		} else {
@@ -161,16 +161,21 @@ function match() {
 
 // Display a modal for completing the game
 function winner() {
-	const rating = `${moves < 9 ?  "3 stars" : moves < 13 ?  "2 stars" : moves < 18 ? "1 stars" : "...Did you thought about playing something else maybe?"}`;
+	const rating = `${
+		moves < 9 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 13 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 18 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
+	<br>
+	<br>
 	<h2>Congratulations !!!</h2>
 	<br>
-	<h3>You finished in ${moves} moves</h3>
+	<h3>Moves used: ${moves} </h3>
 	<hr>
-	<h3>Amazing speed your time was ${timerDisplay.innerHTML.slice(5)}</h3>
+	<h3>Time: ${timerDisplay.innerHTML.slice(5)}</h3>
 	<hr>
-	<h3>Rating ${rating}</h3>
+	<h3>Rating: ${rating}</h3>
 	<hr>
 	`;
 }
