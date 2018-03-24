@@ -110,7 +110,7 @@ function displayTimePassed(seconds) {
 	const minutes = Math.floor(seconds / 60);
 	const remainderSeconds = seconds % 60;
 	const display = `Timer ${minutes}:${remainderSeconds < 10 ? '0' : '' }${remainderSeconds}`;
-	document.title = display;
+	document.title = display.slice(5);
 	timerDisplay.textContent = display;
 }
 
@@ -129,7 +129,7 @@ function check() {
 	let len = vs.length;
 	if (len == 2) {
 		// While cards have same id and are different cards call match function
-		if (vs[0].id === vs[1].id ) {
+		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
 			match();
 			// If not call noMatch function
 		} else {
@@ -162,21 +162,28 @@ function match() {
 // Display a modal for completing the game
 function winner() {
 	const rating = `${
-		moves < 9 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 13 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 18 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
+		moves < 12 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 15 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 19 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
-	<br>
-	<br>
-	<h2>Congratulations !!!</h2>
-	<br>
-	<h3>Moves used: ${moves} </h3>
-	<hr>
-	<h3>Time: ${timerDisplay.innerHTML.slice(5)}</h3>
-	<hr>
-	<h3>Rating: ${rating}</h3>
-	<hr>
+	<div>
+		<h2>You Won !!!</h2>
+		<input placeholder="Enter you Name"></input>
+		<br>
+		<button>Submit</button>
+		<p>Moves used: ${moves} </p>
+		<p>Time: ${timerDisplay.innerHTML.slice(5)}</p>
+		<p>Rating: ${rating}</p>
+	</div>
+	<div>
+		<h2>Scoreboard</h2>
+		<ul class="highscore">
+		<li>Gabe - 00:45</li>
+		<li>Joe - 01:25</li>
+		<li>Bob - 02:45</li>
+		</ul>
+	</div>
 	`;
 }
 
@@ -211,30 +218,30 @@ function countMoves() {
 // Rates the current player according to the number of moves made, replacing stars with circles and different colours for different scoring systems
 function stars() {
 	switch (moves) {
-		case 9:
+		case 12:
 		starsRating[0].classList.remove('fa-star');
 		starsRating[0].classList.add('fa-question-circle', 'minus');
 			break;
-		case 13:
+		case 15:
 		starsRating[1].classList.remove('fa-star');
 		starsRating[1].classList.add('fa-question-circle', 'minus');
 			break;
-		case 18:
+		case 19:
 		starsRating[2].classList.remove('fa-star');
 		starsRating[2].classList.add('fa-question-circle', 'minus');
 			break;
-		case 22:
-		starsRating[0].classList.remove('fa-question-circle');
-		starsRating[0].classList.add('fa-exclamation');
-			break;
-		case 25:
-		starsRating[1].classList.remove('fa-question-circle');
-		starsRating[1].classList.add('fa-exclamation');
-			break;
-		case 28:
-		starsRating[2].classList.remove('fa-question-circle');
-		starsRating[2].classList.add('fa-exclamation');
-			break;
+		// case 22:
+		// starsRating[0].classList.remove('fa-question-circle');
+		// starsRating[0].classList.add('fa-exclamation');
+		// 	break;
+		// case 25:
+		// starsRating[1].classList.remove('fa-question-circle');
+		// starsRating[1].classList.add('fa-exclamation');
+		// 	break;
+		// case 28:
+		// starsRating[2].classList.remove('fa-question-circle');
+		// starsRating[2].classList.add('fa-exclamation');
+		// 	break;
 	};
 }
 
