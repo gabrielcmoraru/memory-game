@@ -212,7 +212,7 @@ function addScore(x) {
 	getHighscores.push(item);
 
 	//Remove elements from array only keeping the last 6 highscores recorded
-	getHighscores.splice(0, getHighscores.length -6);
+	getHighscores.splice(0, getHighscores.length - 6);
 
 	//Retrieve data from local storage and append to highscore
 	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));

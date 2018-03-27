@@ -299,7 +299,7 @@ h1 {
 @media screen and (max-width: 500px) {
 	.deck {
 		width: 98vw;
-		min-height: 550px;
+		min-height: 500px;
 	}
 	.deck .card {
 		width: 19vw;
@@ -316,7 +316,7 @@ h1 {
 @media screen and (max-width: 400px) {
 	.deck {
 		width: 98vw;
-		min-height: 450px;
+		min-height: 430px;
 		padding: 10px;
 	}
 	.deck .card {
