@@ -164,7 +164,7 @@ function winner() {
 	const rating = `${
 		moves < 16 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
 		moves < 18 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 22 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
+		moves < 22 ? "<i class='fa fa-star'></i>" : "...Not Rated"}`;
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<div>
@@ -207,8 +207,12 @@ function addScore(x) {
 		storedTime,
 		storedRating
 	};
+
 	//Push data to local storage
 	getHighscores.push(item);
+
+	//Remove elements from array only keeping the last 6 highscores recorded
+	getHighscores.splice(0, getHighscores.length -6);
 
 	//Retrieve data from local storage and append to highscore
 	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));
@@ -217,13 +221,12 @@ function addScore(x) {
 
 //Map an empty aray with the values stored in the localstorage an join them
 function populateList(highscore = [], highscoreList) {
-	highscoreList.innerHTML = highscore.map((highscore, i) =>{
-		return `
-			<li>
-				<label for='item${i}'>${highscore.storedName.toUpperCase()} | Time ${highscore.storedTime} | Rating ${highscore.storedRating}</label>
-			</li>
-		`}).join('');
-}
+			highscoreList.innerHTML = highscore.map((highscore, i) =>{
+				return `
+					<li>
+						<label for='item${i}'>${highscore.storedName.toUpperCase()} | Time ${highscore.storedTime} | Rating ${highscore.storedRating}</label>
+					</li>
+				`}).join('');}
 
 //Event listener for submit name input
 addHighscore.addEventListener('submit', addScore);
