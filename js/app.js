@@ -129,7 +129,7 @@ function check() {
 	let len = vs.length;
 	if (len == 2) {
 		// While cards have same id and are different cards call match function
-		if (vs[0].id === vs[1].id 			&& vs[0] !== vs[1]) {
+		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
 			match();
 			// If not call noMatch function
 		} else {
@@ -162,9 +162,9 @@ function match() {
 // Display a modal for completing the game
 function winner() {
 	const rating = `${
-		moves < 12 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 15 ?  "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 19 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
+		moves < 16 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 18 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 22 ? "<i class='fa fa-star'></i>" : "...Did you thought about playing something else maybe?"}`;
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<div>
@@ -271,13 +271,13 @@ function countMoves() {
 // Rates the current player according to the number of moves made
 function stars() {
 	switch (moves) {
-		case 12:
+		case 16:
 		starsRating[0].classList.add('minus');
 			break;
-		case 15:
+		case 18:
 		starsRating[1].classList.add('minus');
 			break;
-		case 19:
+		case 22:
 		starsRating[2].classList.add('minus');
 			break;
 	};
