@@ -215,6 +215,11 @@ h1 {
 	color: white;
 }
 
+.highscore li:nth-child(even) {
+	background: blueviolet;
+	color: white;
+}
+
 .modal-buttons:nth-of-type(1):hover {
  color: red;
 }
@@ -272,7 +277,7 @@ h1 {
 @media screen and (max-width: 680px) {
 	.deck {
 		width: 90vw;
-		min-height: 560px;
+		min-height: 600px;
 	}
 	.deck .card {
 		width: 18vw;
@@ -294,7 +299,7 @@ h1 {
 @media screen and (max-width: 500px) {
 	.deck {
 		width: 98vw;
-		min-height: 500px;
+		min-height: 550px;
 	}
 	.deck .card {
 		width: 19vw;
@@ -311,7 +316,7 @@ h1 {
 @media screen and (max-width: 400px) {
 	.deck {
 		width: 98vw;
-		min-height: 400px;
+		min-height: 450px;
 		padding: 10px;
 	}
 	.deck .card {

@@ -116,8 +116,8 @@ function displayTimePassed(seconds) {
 
 // Start counter and remove event listeners from all other cards
 function startTimer() {
-  timer();
-  cards.forEach(card => card.removeEventListener('click', startTimer))
+	timer();
+	cards.forEach(card => card.removeEventListener('click', startTimer))
 }
 
 
@@ -129,7 +129,7 @@ function check() {
 	let len = vs.length;
 	if (len == 2) {
 		// While cards have same id and are different cards call match function
-		if (vs[0].id === vs[1].id && vs[0] !== vs[1]) {
+		if (vs[0].id === vs[1].id 			&& vs[0] !== vs[1]) {
 			match();
 			// If not call noMatch function
 		} else {
@@ -168,24 +168,77 @@ function winner() {
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<div>
-		<h2>You Won !!!</h2>
-		<input placeholder="Enter you Name"></input>
-		<br>
-		<button>Submit</button>
+		<h1>You Won !!!</h1>
+		<form class='add-highscore'>
+			<input type='text' name='item' placeholder='Enter Youre Name' required>
+			<br>
+			<input type='submit' value='Submit'>
+		</form>
 		<p>Moves used: ${moves} </p>
 		<p>Time: ${timerDisplay.innerHTML.slice(5)}</p>
 		<p>Rating: ${rating}</p>
 	</div>
 	<div>
 		<h2>Scoreboard</h2>
-		<ul class="highscore">
-		<li>Gabe - 00:45</li>
-		<li>Joe - 01:25</li>
-		<li>Bob - 02:45</li>
+		<ul class='highscore'>
+		<li>Loading...</li>
 		</ul>
 	</div>
 	`;
+
+// Scoreboard functionality
+//----------------
+//Selectors for the modal fields
+const addHighscore = document.querySelector('.add-highscore');
+const highscore = document.querySelector('.highscore');
+
+//Call local storage for data or initiate an empty object
+const getHighscores = JSON.parse(localStorage.getItem('getHighscores')) || [];
+
+function addScore(x) {
+	x.preventDefault();
+	//Variables for data saved
+	const storedName = (this.querySelector('[name=item]')).value.toUpperCase();
+	const storedTime = timerDisplay.innerHTML.slice(5);
+	const storedRating = rating;
+
+	const item = {
+		storedName,
+		storedTime,
+		storedRating
+	};
+	//Push data to local storage
+	getHighscores.push(item);
+
+	//Retrieve data from local storage and append to highscore
+	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));
+	populateList(getHighscores, highscore);
 }
+
+//Map an empty aray with the values stored in the localstorage an join them
+function populateList(highscore = [], highscoreList) {
+	highscoreList.innerHTML = highscore.map((highscore, i) =>{
+		return `
+			<li>
+				<label for='item${i}'>${highscore.storedName.toUpperCase()} | Time ${highscore.storedTime} | Rating ${highscore.storedRating}</label>
+			</li>
+		`}).join('');
+}
+
+//Event listener for submit name input
+addHighscore.addEventListener('submit', addScore);
+
+//Retrieve data from local storage and append to highscore
+populateList(getHighscores, highscore);
+
+//Remove form after submit
+const form = document.querySelector('form');
+form.addEventListener('submit', function() {
+	addScore;
+	this.remove();
+}, false);
+}
+
 
 // Opened cards noMatch function add's 'wrong' class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms, and the moves counter
 function noMatch() {
@@ -215,33 +268,18 @@ function countMoves() {
 	stars();
 }
 
-// Rates the current player according to the number of moves made, replacing stars with circles and different colours for different scoring systems
+// Rates the current player according to the number of moves made
 function stars() {
 	switch (moves) {
 		case 12:
-		starsRating[0].classList.remove('fa-star');
-		starsRating[0].classList.add('fa-question-circle', 'minus');
+		starsRating[0].classList.add('minus');
 			break;
 		case 15:
-		starsRating[1].classList.remove('fa-star');
-		starsRating[1].classList.add('fa-question-circle', 'minus');
+		starsRating[1].classList.add('minus');
 			break;
 		case 19:
-		starsRating[2].classList.remove('fa-star');
-		starsRating[2].classList.add('fa-question-circle', 'minus');
+		starsRating[2].classList.add('minus');
 			break;
-		// case 22:
-		// starsRating[0].classList.remove('fa-question-circle');
-		// starsRating[0].classList.add('fa-exclamation');
-		// 	break;
-		// case 25:
-		// starsRating[1].classList.remove('fa-question-circle');
-		// starsRating[1].classList.add('fa-exclamation');
-		// 	break;
-		// case 28:
-		// starsRating[2].classList.remove('fa-question-circle');
-		// starsRating[2].classList.add('fa-exclamation');
-		// 	break;
 	};
 }
 
