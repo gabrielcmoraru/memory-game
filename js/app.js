@@ -169,9 +169,9 @@ function winner() {
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<div>
-		<h1>You Won !!!</h1>
+		<h1>Winner !!!</h1>
 		<form class='add-highscore'>
-			<input type='text' name='item' placeholder='Enter Youre Name' required>
+			<input type='text' name='item' placeholder='Nickname' required>
 			<br>
 			<input type='submit' value='Submit'>
 		</form>
@@ -180,7 +180,7 @@ function winner() {
 		<p>Rating: ${rating}</p>
 	</div>
 	<div>
-		<h2>Scoreboard</h2>
+		<h2 class='header-score-reset'>Highscores<span class='score-reset'><i class='fa fa-database'></i> Erase Highscores</span></h2>
 		<ul class='highscore'>
 		<li>Loading...</li>
 		</ul>
@@ -192,9 +192,19 @@ function winner() {
 //Selectors for the modal fields
 const addHighscore = document.querySelector('.add-highscore');
 const highscore = document.querySelector('.highscore');
+const scoreReset = document.querySelector('.score-reset');
 
 //Call local storage for data or initiate an empty object
 const getHighscores = JSON.parse(localStorage.getItem('getHighscores')) || [];
+
+//Delete local storage data and update highscore display
+scoreReset.onclick = function() {
+	localStorage.clear();
+	highscore.innerHTML = `
+		<li>
+			<label>Data deleted, reload...</label>
+		</li>`;
+}
 
 function addScore(x) {
 	x.preventDefault();
@@ -249,7 +259,7 @@ function noMatch() {
 	vs[0].classList.add('wrong');
 	vs[1].classList.add('wrong');
 	countMoves();
-	setTimeout(resetCheck, 450);
+	setTimeout(resetCheck, 250);
 }
 
 // Remove classes from the 2 cards and empty the 'vs' array

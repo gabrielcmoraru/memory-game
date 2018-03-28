@@ -67,9 +67,9 @@ h1 {
 
 .deck .card.open {
 	cursor: default;
-	transform: rotate(1turn);
+	transform: rotateX(1turn);
 	background: #00ff00;
-	transition: 0.4s;
+	transition: 0.1s;
 }
 
 .deck .card.show {
@@ -133,7 +133,7 @@ h1 {
 /* Animation for wrong card */
 @keyframes shake {
 	10%, 90% {
-		transform: translate3d(-1px, 0, 0);
+		transform: translate3d(-12px, 0, 0);
 	}
 
 	20%, 80% {
@@ -145,7 +145,7 @@ h1 {
 	}
 
 	40%, 60% {
-		transform: translate3d(4px, 0, 0);
+		transform: translate3d(14px, 0, 0);
 	}
 }
 
@@ -183,23 +183,21 @@ h1 {
 /* 3D animation for modal content */
 @keyframes rainbow {
 	from {
+		/* animation: slideDown 0.7s; */
 		transform: rotate3d(1, 1, 1, 540deg);
 		opacity: 0;
 	}
-	50% {
+	30% {
 		color: black;
 		background-color: #00FF00;
-		border: 55px solid purple;
 	}
-	70% {
+	60% {
 		color: black;
 		background-color: #FF7F00;
-		border: 55px solid blue;
 	}
 	80% {
 		color: black;
 		background-color: #FFFF00;
-		border: 55px solid purple;
 	}
 	90% {
 		transform: rotate3d(0, 0, 0, 0deg);
@@ -210,12 +208,12 @@ h1 {
 }
 
 /* Flashing button keyframes */
-/* @keyframes glowing-close {
+@keyframes glowing-close {
 	0% { color: #B20000; text-shadow: 0 0 3px #B20000; }
 	50% { color: #FF0000; text-shadow: 0 0 40px #FF0000; }
 	100% { color: #B20000; text-shadow: 0 0 3px #B20000; }
 }
- */
+
 @keyframes glowing-new {
 	0% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
 	50% { color: #20B; text-shadow: 0 0 40px #20B2FF; }
@@ -234,7 +232,7 @@ h1 {
 	height: 100%;
 	background-color: rgb(0,0,0);
 	background-color: rgba(0, 0, 0, 0.3);
-	animation: slideDown 0.7s;
+	animation: rainbow 3s;
 }
 
 .modal-content {
@@ -244,7 +242,7 @@ h1 {
 	border: 1px solid black;
 	width: 55vw;
 	height: 500px	;
-	animation: rainbow 3s;
+
 }
 
 .buttons-box {
@@ -288,12 +286,21 @@ h1 {
 
 .modal-buttons:nth-of-type(1) {
 	float: left;
-	animation: glowing-close 1500ms infinite;
 }
 
 .modal-buttons:nth-of-type(2) {
 	float: right;
-	animation: glowing-new 1500ms infinite;
+	animation: glowing-new 700ms infinite;
+}
+
+.score-reset {
+	display: none;
+}
+
+.header-score-reset:hover .score-reset {
+	display: block;
+	cursor: pointer;
+	animation: glowing-close 700ms 10;
 }
 
 .modal-buttons:hover {
