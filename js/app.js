@@ -31,6 +31,8 @@ let pairs = 0;
 // Variable for counter
 let countup;
 
+// Variable that holds all cards aka board
+const board = document.querySelector('.deck');
 
 /*
  * Display the cards on the page
@@ -65,9 +67,6 @@ starsRating.forEach( function(element) {
 	element.classList.remove('fa-question-circle', 'fa-exclamation', 'minus');
 	element.classList.add('fa-star')
 });
-
-// Variable that holds all cards aka board
-const board = document.querySelector('.deck');
 
 // Variable for shuffled cards
 let mixCards = shuffle(cards);
@@ -133,7 +132,8 @@ function check() {
 			match();
 			// If not call noMatch function
 		} else {
-			noMatch();
+			board.classList.add('kill-click');
+			setTimeout(noMatch, 450);
 		}
 console.log(vs)
 	}
@@ -147,6 +147,7 @@ function match() {
 		vs[1].classList.add('match');
 		clearInterval(countup);
 		setTimeout(winner, 200);
+		board.classList.remove('kill-click');
 	} else {
 		vs[0].classList.add('match');
 		vs[1].classList.add('match');
@@ -248,7 +249,7 @@ function noMatch() {
 	vs[0].classList.add('wrong');
 	vs[1].classList.add('wrong');
 	countMoves();
-	setTimeout(resetCheck, 200);
+	setTimeout(resetCheck, 450);
 }
 
 // Remove classes from the 2 cards and empty the 'vs' array
@@ -256,6 +257,7 @@ function resetCheck() {
 	vs[0].classList.remove('open', 'show', 'wrong');
 	vs[1].classList.remove('open', 'show', 'wrong');
 	vs = [];
+	board.classList.remove('kill-click');
 }
 
 // Display symbol (Add or remove classes to card)
