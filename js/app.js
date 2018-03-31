@@ -64,8 +64,7 @@ document.title = 'Matching Game';
 
 // Reset star rating to default icons
 starsRating.forEach( function(element) {
-	element.classList.remove('fa-question-circle', 'fa-exclamation', 'minus');
-	element.classList.add('fa-star')
+	element.classList.remove('minus');
 });
 
 // Variable for shuffled cards
@@ -96,7 +95,7 @@ function timer(seconds) {
 
 	countup = setInterval(() => {
 		const secondsPassed = Math.round((Date.now() - beginning ) / 1000);
-		if (secondsPassed > 300) {
+		if (secondsPassed > 500) {
 			clearInterval(countup);
 			return;
 		}
@@ -245,7 +244,13 @@ const getHighscores = JSON.parse(localStorage.getItem('getHighscores')) || [];
 //Delete local storage data and update highscore display
 scoreReset.onclick = function() {
 	getHighscores.splice(0, getHighscores.length);
+	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));
 	populateList(getHighscores, highscoreList);
+	highscoreList.innerHTML = `
+		<li>
+			<labe>No date recorded</labe>
+		</li>
+	`;
 }
 
 //Save score to local storage
