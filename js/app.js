@@ -133,7 +133,7 @@ function check() {
 			// If not call noMatch function
 		} else {
 			board.classList.add('kill-click');
-			setTimeout(noMatch, 450);
+			noMatch();
 		}
 console.log(vs)
 	}
@@ -160,106 +160,12 @@ function match() {
 	};
 }
 
-// Display a modal for completing the game
-function winner() {
-	const rating = `${
-		moves < 16 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 18 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 22 ? "<i class='fa fa-star'></i>" : "...Not Rated"}`;
-	modal.style.display = 'block';
-	winnerText.innerHTML = `
-	<div>
-		<h1>Winner !!!</h1>
-		<form class='add-highscore'>
-			<input type='text' name='item' placeholder='Nickname' required>
-			<br>
-			<input type='submit' value='Submit'>
-		</form>
-		<p>Moves used: ${moves} </p>
-		<p>Time: ${timerDisplay.innerHTML.slice(5)}</p>
-		<p>Rating: ${rating}</p>
-	</div>
-	<div>
-		<h2 class='header-score-reset'>Highscores<span class='score-reset'><i class='fa fa-database'></i> Erase Highscores</span></h2>
-		<ul class='highscore'>
-		<li>Loading...</li>
-		</ul>
-	</div>
-	`;
-
-// Scoreboard functionality
-//----------------
-//Selectors for the modal fields
-const addHighscore = document.querySelector('.add-highscore');
-const highscore = document.querySelector('.highscore');
-const scoreReset = document.querySelector('.score-reset');
-
-//Call local storage for data or initiate an empty object
-const getHighscores = JSON.parse(localStorage.getItem('getHighscores')) || [];
-
-//Delete local storage data and update highscore display
-scoreReset.onclick = function() {
-	localStorage.clear();
-	highscore.innerHTML = `
-		<li>
-			<label>Data deleted, reload...</label>
-		</li>`;
-}
-
-function addScore(x) {
-	x.preventDefault();
-	//Variables for data saved
-	const storedName = (this.querySelector('[name=item]')).value.toUpperCase();
-	const storedTime = timerDisplay.innerHTML.slice(5);
-	const storedRating = rating;
-
-	const item = {
-		storedName,
-		storedTime,
-		storedRating
-	};
-
-	//Push data to local storage
-	getHighscores.push(item);
-
-	//Remove elements from array only keeping the last 6 highscores recorded
-	getHighscores.splice(0, getHighscores.length - 6);
-
-	//Retrieve data from local storage and append to highscore
-	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));
-	populateList(getHighscores, highscore);
-}
-
-//Map an empty aray with the values stored in the localstorage an join them
-function populateList(highscore = [], highscoreList) {
-			highscoreList.innerHTML = highscore.map((highscore, i) =>{
-				return `
-					<li>
-						<label for='item${i}'>${highscore.storedName.toUpperCase()} | Time ${highscore.storedTime} | Rating ${highscore.storedRating}</label>
-					</li>
-				`}).join('');}
-
-//Event listener for submit name input
-addHighscore.addEventListener('submit', addScore);
-
-//Retrieve data from local storage and append to highscore
-populateList(getHighscores, highscore);
-
-//Remove form after submit
-const form = document.querySelector('form');
-form.addEventListener('submit', function() {
-	addScore;
-	this.remove();
-}, false);
-}
-
-
 // Opened cards noMatch function add's 'wrong' class so you can view them (otherwise second card will not flip, it will for 1ms), call reset match function with timer to allow card view for x ammount of ms, and the moves counter
 function noMatch() {
 	vs[0].classList.add('wrong');
 	vs[1].classList.add('wrong');
 	countMoves();
-	setTimeout(resetCheck, 250);
+	setTimeout(resetCheck, 300);
 }
 
 // Remove classes from the 2 cards and empty the 'vs' array
@@ -296,6 +202,98 @@ function stars() {
 		starsRating[2].classList.add('minus');
 			break;
 	};
+}
+
+// Display a modal for completing the game
+//---------------------------
+function winner() {
+	const rating = `${
+		moves < 16 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 18 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		moves < 22 ? "<i class='fa fa-star'></i>" : "...Not Rated"}`;
+	modal.style.display = 'block';
+	winnerText.innerHTML = `
+	<div>
+		<h1>You Win !!!</h1>
+		<form class='add-highscore'>
+			<input type='text' name='item' maxlength='14' placeholder='Enter Your Name' required>
+			<br>
+			<input type='submit' value='Submit'>
+		</form>
+		<p>Moves used: ${moves} <br>
+		Time: ${timerDisplay.innerHTML.slice(5)}<br>
+		Rating: ${rating}</p>
+	</div>
+	<div>
+		<h2 class='header-score-reset'>Highscores<span class='score-reset'><i class='fa fa-database'></i> Erase Highscores</span></h2>
+		<ul class='highscore'>
+		<li>Loading...</li>
+		</ul>
+	</div>
+	`;
+
+// Scoreboard functionality
+//----------------
+//Selectors for the modal fields
+const addHighscore = document.querySelector('.add-highscore');
+const highscoreList = document.querySelector('.highscore');
+const scoreReset = document.querySelector('.score-reset');
+
+//Call local storage for data or initiate an empty object
+const getHighscores = JSON.parse(localStorage.getItem('getHighscores')) || [];
+
+//Delete local storage data and update highscore display
+scoreReset.onclick = function() {
+	getHighscores.splice(0, getHighscores.length);
+	populateList(getHighscores, highscoreList);
+}
+
+//Save score to local storage
+function addScore(x) {
+	x.preventDefault();
+	//Variables for data saved
+	const storedName = (this.querySelector('[name=item]')).value.toUpperCase();
+	const storedTime = timerDisplay.innerHTML.slice(5);
+	const storedRating = rating;
+
+	const item = {
+		storedName,
+		storedTime,
+		storedRating
+	};
+
+	//Push data to local storage
+	getHighscores.push(item);
+
+	//Remove elements from array only keeping the last 8 highscores recorded
+	getHighscores.splice(0, getHighscores.length - 8);
+
+	//Retrieve data from local storage and append to highscore
+	localStorage.setItem('getHighscores', JSON.stringify(getHighscores));
+	populateList(getHighscores, highscoreList);
+}
+
+//Map an empty aray with the values stored in the localstorage an join them
+function populateList(highscore = [], highscorePrint) {
+			highscorePrint.innerHTML = highscore.map((highscore, i) =>{
+				return `
+					<li>
+						<label for='item${i}'>${highscore.storedName.toUpperCase()} | Time ${highscore.storedTime} | Rating ${highscore.storedRating}</label>
+					</li>
+				`}).join('');}
+
+//Event listener for submit name input
+addHighscore.addEventListener('submit', addScore);
+
+//Retrieve data from local storage and append to highscore
+populateList(getHighscores, highscoreList);
+
+//Remove form after submit
+const form = document.querySelector('form');
+form.addEventListener('submit', function() {
+	addScore;
+	this.remove();
+}, false);
 }
 
 

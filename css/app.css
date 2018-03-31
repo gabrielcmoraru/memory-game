@@ -17,8 +17,9 @@ body {
 }
 
 body {
-	background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
+	background: #CCFFCC ; /* Background pattern from Subtle Patterns */
 	font-family: 'Coda', cursive;
+	font-size: 1.1em;
 }
 
 .container {
@@ -87,7 +88,7 @@ h1 {
 	cursor: default;
 	background: #FF5722;
 	font-size: 3em;
-	animation: shake 0.45s cubic-bezier(.36,.07,.19,.97);
+	animation: shake 0.35s cubic-bezier(.36,.07,.19,.97);
 }
 
 
@@ -133,7 +134,7 @@ h1 {
 /* Animation for wrong card */
 @keyframes shake {
 	10%, 90% {
-		transform: translate3d(-12px, 0, 0);
+		transform: translate3d(-2px, 0, 0);
 	}
 
 	20%, 80% {
@@ -141,11 +142,11 @@ h1 {
 	}
 
 	30%, 50%, 70% {
-		transform: translate3d(-4px, 0, 0);
+		transform: translate3d(-2px, 0, 0);
 	}
 
 	40%, 60% {
-		transform: translate3d(14px, 0, 0);
+		transform: translate3d(2px, 0, 0);
 	}
 }
 
@@ -183,7 +184,7 @@ h1 {
 /* 3D animation for modal content */
 @keyframes rainbow {
 	from {
-		/* animation: slideDown 0.7s; */
+		animation: slideDown 1s;
 		transform: rotate3d(1, 1, 1, 540deg);
 		opacity: 0;
 	}
@@ -210,15 +211,16 @@ h1 {
 /* Flashing button keyframes */
 @keyframes glowing-close {
 	0% { color: #B20000; text-shadow: 0 0 3px #B20000; }
-	50% { color: #FF0000; text-shadow: 0 0 40px #FF0000; }
+	50% { color: #FF0000; text-shadow: 0 0 10px #FF0000; }
 	100% { color: #B20000; text-shadow: 0 0 3px #B20000; }
 }
 
 @keyframes glowing-new {
-	0% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
-	50% { color: #20B; text-shadow: 0 0 40px #20B2FF; }
-	100% { color: #20B2AA; text-shadow: 0 0 3px #20B2AA; }
+	0% { color: #cbec10; text-shadow: 0 0 3px #00a650; }
+	50% { color: #cbec10; text-shadow: 0 0 40px #00a650; }
+	100% { color: #cbec10; text-shadow: 0 0 3px #00a650; }
 }
+
 
 /* Modal end-game display  */
 .modal {
@@ -226,23 +228,21 @@ h1 {
 	position: fixed;
 	left: 0;
 	top: 0;
-	overflow: hidden;
+	overflow: scroll;
 	z-index: 1;
 	width: 100%;
 	height: 100%;
-	background-color: rgb(0,0,0);
 	background-color: rgba(0, 0, 0, 0.3);
 	animation: rainbow 3s;
 }
 
 .modal-content {
 	text-align: center;
-	background-color: #FFF;
+	background-color: #66CCFF;
 	margin: 10% auto;
 	border: 1px solid black;
 	width: 55vw;
 	height: 500px	;
-
 }
 
 .buttons-box {
@@ -253,31 +253,19 @@ h1 {
 .modal-buttons {
 	padding: 15px;
 	margin: 15px;
-	color: gray;
+	color: #EF5350;
 	display: inline-block;
 	margin: auto;
 	font-size: 2em;
 	font-weight: bold;
 }
 
-.winner-text {
-	justify-content: space-around;
-	margin-top: 2em;
-}
-
-.highscore {
-	list-style-type: none;
-	padding-left: 0;
-}
-
-.highscore li:nth-child(odd) {
-	background: gray;
-	color: white;
-}
-
-.highscore li:nth-child(even) {
-	background: blueviolet;
-	color: white;
+.modal-buttons:hover {
+	color: lightseagreen;
+	text-decoration: none;
+	cursor: pointer;
+	transform: scaleX(1.1);
+	transition: ease-in-out 0.2s;
 }
 
 .modal-buttons:nth-of-type(1):hover {
@@ -293,22 +281,77 @@ h1 {
 	animation: glowing-new 700ms infinite;
 }
 
+.winner-text {
+	justify-content: space-around;
+	margin-top: 2em;
+}
+
+.add-highscore [type=text] {
+	background-color: rgba(0, 0, 0, 0.5);
+	line-height: 2em;
+	color: white;
+	border-radius: 5px;
+	border: 1px solid #c4c4c4;
+}
+
+.add-highscore [type=text]:focus {
+	outline: none;
+	border: 1px solid red;
+	transition: 0.4s linear;
+	box-shadow: 0px 0px 8px #FF0000;
+}
+
+.add-highscore ::placeholder {
+	color: white;
+	text-align: center;
+}
+
+.add-highscore [type=submit] {
+	background-color: #000;
+	border: none;
+	margin: 10px;
+	padding: 10px;
+	color: white;
+}
+
+.highscore {
+	list-style-type: none;
+	padding-left: 0;
+	margin-top: 0;
+}
+
+.highscore li:nth-child(odd) {
+	background: #215c8e;
+	color: white;
+}
+
+.highscore li:nth-child(even) {
+	background: #6e4bcc;
+	color: white;
+}
+
+.header-score-reset {
+	cursor: pointer;
+	padding: 10px;
+	background: #ECDB54;
+	user-select: none;
+	border-width: 1px 0 1px 0;
+	border-style: solid;
+	border-color: red;
+}
+
 .score-reset {
 	display: none;
 }
 
 .header-score-reset:hover .score-reset {
+	user-select: none;
 	display: block;
-	cursor: pointer;
-	animation: glowing-close 700ms 10;
-}
-
-.modal-buttons:hover {
-	color: lightseagreen;
-	text-decoration: none;
-	cursor: pointer;
-	transform: scaleX(1.1);
-	transition: ease-in-out 0.2s;
+	background: black;
+	padding: 10px;
+	margin-top: 20px;
+	color: red;
+	animation: glowing-close 700ms 4;
 }
 
 
