@@ -248,7 +248,7 @@ scoreReset.onclick = function() {
 	populateList(getHighscores, highscoreList);
 	highscoreList.innerHTML = `
 		<li>
-			<labe>No date recorded</labe>
+			<label>No data recorded</label>
 		</li>
 	`;
 }

@@ -251,6 +251,7 @@ h1 {
 }
 
 .modal-buttons {
+	user-select: none;
 	padding: 15px;
 	margin: 15px;
 	color: #EF5350;
