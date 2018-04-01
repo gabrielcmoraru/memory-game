@@ -1,17 +1,29 @@
 # Memory Game Project
 
 ## Table of Contents
-
-* [Instructions](#instructions)
+* [Info](#Info)
+* [The Game](#The Game)
+* [Resources](#Resources)
 * [Contributing](#contributing)
 
-## Instructions
+## Info
+This project is part for the FEND(Front-end Nano Degree) Udacity scholarship, to test our html, css and js skills 
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## The Game
+A classic game to sharpen the player focus and test your memory. 
+- game timer is started uppon clicking a card.
+- moves counter keeps track of the number paires you've tried to match and NOT card clicks
+- cards are checked for matching id two by two in a separate array with `function check()` AND also checking that is not the same card if true `function match()` is triggered if not `function nomatch()` is triggered
+  * in testing to disable the check for clicking the same card just remove `&& vs[0] !== vs[1]` from `function check()` 
+- cards that match have they're event listeners removed and receive a *match class* that comes with a animation
+  * every matched pair is counted when counter hits 8 the `function winner()` is triggered with a 200ms delay 
 
-To get started, open `js/app.js` and start building out the app's functionality
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+## Resources
+- Shuffle function: http://stackoverflow.com/a/2450976
+- Local Storage and more: http://wesbos.com/
+- Modal: https://www.w3schools.com/
+
 
 ## Contributing
 
