@@ -1,9 +1,9 @@
 # Memory Game Project
 
 ## Table of Contents
-* [Info](#Info)
-* [The-Game](#The-Game)
-* [Resources](#Resources)
+* [Info](#info)
+* [The-Game](#the-game)
+* [Resources](#resources)
 * [Contributing](#contributing)
 
 ## Info
