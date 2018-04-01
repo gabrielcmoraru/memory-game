@@ -2,14 +2,14 @@
 
 ## Table of Contents
 * [Info](#Info)
-* [The Game](#The Game)
+* [The-Game](#The-Game)
 * [Resources](#Resources)
 * [Contributing](#contributing)
 
 ## Info
 This project is part for the FEND(Front-end Nano Degree) Udacity scholarship, to test our html, css and js skills 
 
-## The Game
+## The-Game
 A classic game to sharpen the player focus and test your memory. 
 - game timer is started uppon clicking a card.
 - moves counter keeps track of the number paires you've tried to match and NOT card clicks
