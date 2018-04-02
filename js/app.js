@@ -1,5 +1,5 @@
 // Selector for individual card
-let card = document.getElementsByClassName('card');
+const card = document.getElementsByClassName('card');
 
 // Spread HTMLCollection into an array
 let cards = [...card];
@@ -35,45 +35,44 @@ const board = document.querySelector('.deck');
 //Function to reset and initiate the game
 //--------------------
 function gameInit() {
+	// Reset moves counter on page
+	displayMoves.innerHTML = 0;
 
-// Reset moves counter on page
-displayMoves.innerHTML = 0;
+	// Reset moves counter in the counter(got that ?)
+	moves = 0;
 
-// Reset moves counter in the counter(got that ?)
-moves = 0;
+	// Reset matched pairs counter
+	pairs = 0;
 
-// Reset matched pairs counter
-pairs = 0;
+	// Empty opened cards array
+	vs = [];
 
-// Empty opened cards array
-vs = [];
+	// Stop counter
+	clearInterval(countup);
 
-// Stop counter
-clearInterval(countup);
+	// Reset on page counter
+	timerDisplay.textContent = 'Timer 0:00';
+	document.title = 'Concentration';
 
-// Reset on page counter
-timerDisplay.textContent = 'Timer 0:00';
-document.title = 'Concentration';
+	// Reset star rating to default icons
+	starsRating.forEach( function(element) {
+		element.classList.remove('minus');
+	});
 
-// Reset star rating to default icons
-starsRating.forEach( function(element) {
-	element.classList.remove('minus');
-});
+	// Variable for shuffled cards
+	let mixCards = shuffle(cards);
 
-// Variable for shuffled cards
-let mixCards = shuffle(cards);
-
-// Append each mixed card to the board
-// Set up the event listener for a card. If a card is clicked:
-// - display the card's symbol
-// - start the timer (is removed after timer starts)
-for (let i = 0; i < mixCards.length; i++) {
-	board.append(mixCards[i]);
-	cards[i].classList.remove('open', 'show', 'wrong', 'match')
-	cards[i].addEventListener('click', reveal);
-	cards[i].addEventListener('click', check);
-	cards[i].addEventListener('click', startTimer);
-	};
+	// Append each mixed card to the board
+	// Set up the event listener for a card. If a card is clicked:
+	// - display the card's symbol
+	// - start the timer (is removed after timer starts)
+	for (let i = 0; i < mixCards.length; i++) {
+		board.append(mixCards[i]);
+		cards[i].classList.remove('open', 'show', 'wrong', 'match')
+		cards[i].addEventListener('click', reveal);
+		cards[i].addEventListener('click', check);
+		cards[i].addEventListener('click', startTimer);
+		};
 }
 
 
@@ -127,7 +126,6 @@ function check() {
 			board.classList.add('kill-click');
 			noMatch();
 		}
-console.log(vs)
 	}
 }
 
@@ -165,14 +163,17 @@ function noMatch() {
 function resetCheck() {
 	vs[0].classList.remove('open', 'show', 'wrong');
 	vs[1].classList.remove('open', 'show', 'wrong');
-	vs = [];
+	vs[0].classList.toggle('kill-click');
+	vs[1].classList.toggle('kill-click');
 	board.classList.remove('kill-click');
+	vs = [];
 }
 
 // Display symbol (Add or remove classes to card)
 function reveal() {
 	this.classList.toggle('open');
 	this.classList.toggle('show');
+	this.classList.toggle('kill-click');
 }
 
 // Moves counter that updates the score panel and calls the star rating function
@@ -188,11 +189,8 @@ function stars() {
 		case 16:
 		starsRating[0].classList.add('minus');
 			break;
-		case 18:
+		case 20:
 		starsRating[1].classList.add('minus');
-			break;
-		case 22:
-		starsRating[2].classList.add('minus');
 			break;
 	};
 }
@@ -202,8 +200,8 @@ function stars() {
 function winner() {
 	const rating = `${
 		moves < 16 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 18 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
-		moves < 22 ? "<i class='fa fa-star'></i>" : "...Not Rated"}`;
+		moves < 20 ? "<i class='fa fa-star'></i><i class='fa fa-star'></i>" :
+		"<i class='fa fa-star'></i>"}`;
 	modal.style.display = 'block';
 	winnerText.innerHTML = `
 	<div>
