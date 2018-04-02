@@ -1,17 +1,52 @@
 # Memory Game Project
 
 ## Table of Contents
-
-* [Instructions](#instructions)
+* [Info](#info)
+* [How To Play](#how-to-play)
+* [The Game Logic](#the-game-logic)
+* [Resources](#resources)
 * [Contributing](#contributing)
 
-## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Live Demo
+[You can try your skills or have peek HERE](https://gabrielcmoraru.github.io/memory-game/ "Concentration")
 
-To get started, open `js/app.js` and start building out the app's functionality
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+
+## Info
+This project is part of the FEND(Front-end Nano Degree) Udacity scholarship, to show our JavaScript and Css Knowledge
+
+In order to run this localy you will NEED a HTTP Server , as you won't be able to make use of the local storage features without it.
+
+A very small, easy and reliable option is [Web Server For Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en "Web Server for Chrome")
+
+
+## How-To-Play
+A classic game to sharpen the player focus and test your memory. 
+The goal of the game is to match every card with it's hidden twin using as few moves possible and as fast you can.
+
+
+## The-Game-Logic
+- game timer is started uppon clicking a card and `function reveal()` is called
+- moves counter(`function countMoves()`) keeps track of the number of paires you've tried to match and NOT card clicks and is called in `function match()`
+- cards are checked for matching id two by two in a separate array with `function check()` AND also checking that is not the same card if true `function match()` is triggered if false `function nomatch()` is triggered
+  * in testing to disable the check for clicking the same card just remove `&& vs[0] !== vs[1]` from `function check()` 
+- cards that match have they're event listeners removed and receive a *match* class
+  * every matched pair is counted when counter hits 8 the `function winner()` is triggered with a 200ms delay
+- cards that DON'T match receive the *wrong* class
+- every time 2 cards are "matched" or "not matched" a `function resetCheck()` is triggered, EXCEPT when matched pairs is 8 and there is no need for a reset
+- stars(`function stars()`) on the board change upon reaching a certain number of moves and update every star with a *minus* class
+- when calling `function winner()` the modal display changes from *none* to *block* and the end game information is generated
+  * generates the data for the current match
+  * add curent highscore to local storage `function addScore()`
+  * loads saved highscores from local storage `function populateList()`
+  * erases the data saved on local storage `scoreReset.onclick`
+
+
+## Resources
+- Shuffle function: http://stackoverflow.com/a/2450976
+
+
 
 ## Contributing
 
