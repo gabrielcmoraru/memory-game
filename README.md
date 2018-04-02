@@ -16,6 +16,9 @@
 ## Info
 This project is part of the FEND(Front-end Nano Degree) Udacity scholarship, to show our JavaScript and Css Knowledge
 
+In order to run this localy you will NEED a HTTP Server , as you won't be able to make use of the local storage features without it.
+
+A very small, easy and reliable option is [Web Server For Chrome](https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en "Web Server for Chrome")
 
 
 ## How-To-Play
