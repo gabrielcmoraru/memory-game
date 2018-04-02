@@ -9,7 +9,7 @@
 
 
 ## Live Demo
-[You can try your skills or have peek here](https://gabrielcmoraru.github.io/memory-game/ "Concentration")
+[You can try your skills or have peek HERE](https://gabrielcmoraru.github.io/memory-game/ "Concentration")
 
 
 
