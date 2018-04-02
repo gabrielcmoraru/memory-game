@@ -68,7 +68,7 @@ function gameInit() {
 	// - start the timer (is removed after timer starts)
 	for (let i = 0; i < mixCards.length; i++) {
 		board.append(mixCards[i]);
-		cards[i].classList.remove('open', 'show', 'wrong', 'match')
+		cards[i].classList.remove('open', 'show', 'wrong', 'match', 'kill-click')
 		cards[i].addEventListener('click', reveal);
 		cards[i].addEventListener('click', check);
 		cards[i].addEventListener('click', startTimer);
