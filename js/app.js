@@ -53,7 +53,7 @@ clearInterval(countup);
 
 // Reset on page counter
 timerDisplay.textContent = 'Timer 0:00';
-document.title = 'Matching Game';
+document.title = 'Concentration';
 
 // Reset star rating to default icons
 starsRating.forEach( function(element) {
@@ -138,6 +138,7 @@ function match() {
 		vs[0].classList.add('match');
 		vs[1].classList.add('match');
 		clearInterval(countup);
+		countMoves();
 		setTimeout(winner, 200);
 		board.classList.remove('kill-click');
 	} else {
